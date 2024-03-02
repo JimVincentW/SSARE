@@ -3,6 +3,7 @@ import pandas as pd
 from bs4 import BeautifulSoup
 import aiohttp
 import re
+import os
 
 def clean_text(text):
     # Replace or remove unwanted characters
@@ -48,7 +49,10 @@ async def process_article_url(session, url):
 async def main():
     async with aiohttp.ClientSession() as session:
         df = await scrape_cnn_articles(session)
-        df.to_csv('/app/scrapers/data/dataframes/cnn_articles.csv', index=False)
+        directory = '/app/scrapers/data/dataframes'
+        os.makedirs(directory, exist_ok=True)  # Create the directory if it doesn't exist
+        file_path = os.path.join(directory, 'cnn_articles.csv')
+        df.to_csv(file_path, index=False)
         df.head(3)
 
 
