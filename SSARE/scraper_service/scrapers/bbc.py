@@ -2,6 +2,7 @@ import asyncio
 import aiohttp
 from bs4 import BeautifulSoup
 import pandas as pd
+import os
 
 # Async function to fetch the HTML content of a given URL using aiohttp instead of requests
 async def fetch_html_content(session, url):
@@ -44,7 +45,11 @@ async def main():
         tasks = [process_article_url(session, base_url, url) for url in article_urls]
         articles = await asyncio.gather(*tasks)
         df = pd.DataFrame(articles)
-        df.to_csv('/app/scrapers/data/dataframes/bbc_articles.csv', index=False)
+
+        directory = '/app/scrapers/data/dataframes'
+        os.makedirs(directory, exist_ok=True)  # Create the directory if it doesn't exist
+        file_path = os.path.join(directory, 'bbc_articles.csv')
+        df.to_csv(file_path, index=False)
 
         # Show the DataFrame head
         print(df.head())
