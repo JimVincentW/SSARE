@@ -110,8 +110,8 @@
         Trigger Scraping
     </button>    
     
-    <form hx-get="/" hx-target="#articles" hx-trigger="submit">
-        <input type="text" name="search_query" placeholder="Search articles..." value="{{ search_query }}">
+    <form hx-get="http://127.0.0.1:6969/search" hx-target="#articles" hx-trigger="submit">
+        <input type="text" name="query" placeholder="Search articles..." value="{{ search_query }}">
         <button type="submit">Search</button>
     </form>
     <div id="articles">
