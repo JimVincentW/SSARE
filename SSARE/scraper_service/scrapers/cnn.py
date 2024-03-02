@@ -2,8 +2,14 @@ import asyncio
 import pandas as pd
 from bs4 import BeautifulSoup
 import aiohttp
+import re
 
-
+def clean_text(text):
+    # Replace or remove unwanted characters
+    text = re.sub(r'\xa0', ' ', text)  # Replace non-breaking spaces
+    text = re.sub(r'\n', ' ', text)  # Replace newlines with spaces
+    text = ' '.join(text.split())  # Normalize whitespace to single spaces
+    return text
 
 async def scrape_cnn_articles(session):
     base_url = 'https://www.cnn.com'
@@ -31,6 +37,7 @@ async def process_article_url(session, url):
             headline_text = headline.text.strip() if headline else 'N/A'
             article_paragraphs = article_soup.find_all('div', class_='article__content')
             cleaned_paragraph = ' '.join([p.text.strip() for p in article_paragraphs])
+            cleaned_paragraph = clean_text(cleaned_paragraph)
             print(f"Processed {url}")
             
             return url, headline_text, cleaned_paragraph
