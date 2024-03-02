@@ -43,8 +43,8 @@ async def main():
         article_urls = extract_article_urls(news_page_html)
         tasks = [process_article_url(session, base_url, url) for url in article_urls]
         articles = await asyncio.gather(*tasks)
-        df.to_csv('/app/scrapers/data/dataframes/bbc_articles.csv', index=False)
         df = pd.DataFrame(articles)
+        df.to_csv('/app/scrapers/data/dataframes/bbc_articles.csv', index=False)
 
         # Show the DataFrame head
         print(df.head())
