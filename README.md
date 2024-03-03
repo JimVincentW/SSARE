@@ -124,7 +124,19 @@ The design philosophy underscores flexibility, allowing integration with any scr
 ## Upcoming Features
 
 ### Future Roadmap
-The project's trajectory includes plans for enhanced service orchestration (with Kubernetes) and expanded scraper support, all aimed at bolstering the engine's functionality and reach.
+#### Short-term
+- Customisable embeddings models
+- Eportable Copy of datascraping datasets
+- Customisable timeframes for scraping
+
+#### Long-term
+- "Flavours" of information spaces - e.g. catering to different geographic or disciplinary areas
+- Custom 7b model for comprehensive labeling and summarization tasks
+
+
+
+
+
 
 ### Participation: Script Contributions
 We welcome contributions from passionate activists, enthusiastic data scientists, and dedicated developers. Your expertise can greatly enhance our repository, expanding the breadth of our political news coverage. 
