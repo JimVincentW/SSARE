@@ -125,13 +125,13 @@ The design philosophy underscores flexibility, allowing integration with any scr
 
 ### Future Roadmap
 #### Short-term
-- Customisable embeddings models
-- Eportable Copy of datascraping datasets
-- Customisable timeframes for scraping
+- [ ] Customisable embeddings models
+- [ ] Eportable Copy of datascraping datasets
+- [ ] Customisable timeframes for scraping
 
 #### Long-term
-- "Flavours" of information spaces - e.g. catering to different geographic or disciplinary areas
-- Custom 7b model for comprehensive labeling and summarization tasks
+- [ ] "Flavours" of information spaces - e.g. catering to different geographic or disciplinary areas
+- [ ] Custom 7b model for comprehensive labeling and summarization tasks
 
 
 
