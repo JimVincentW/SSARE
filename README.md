@@ -2,6 +2,7 @@
 🌐🔍🪡 Finding the needle in the haystack
 # Semantic Search Article Recommendation Engine
 Always up-to-date news RAG endpoint for semantic search and article recommendations.
+
 Also: a solution for data scientists and their needs for up-to-date political news datasets.
 
 
