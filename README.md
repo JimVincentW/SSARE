@@ -31,7 +31,8 @@ Version 1 is online. Please refer to the [Getting Started](#getting-started) sec
 
 
 
-## Example Use Case
+## Add your data source in 3 steps
+1. 
 Insert any sourcing or scraping script into the scraper_service/scrapers folder. 
 A simple scraping script can look like this:
 ```python
@@ -86,10 +87,33 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
+2. Make the script save the dataframe to the /app/scrapers/data/dataframes folder. 
+Give your dataframe the name of the source, e.g. Times of India -> timesofindia_articles.csv, CNN -> cnn_articles.csv, etc.
+````bash
+/app/scrapers/data/dataframes/{source}_articles.csv'
+````
+3. Add the source to the scrapers_config.json file in the /app/scrapers folder.
+```json
+{
+    "scrapers": {
+        "cnn": {
+            "location": "scrapers/cnn.py",
+        },
+	"bbc": {
+	    "location": "scrapers/bbc.py",
+	},
+    "timesofindia": {
+        "location": "scrapers/timesofindia.py",
+    }
+}
+```
+
+
 SSARE will execute all scripts in the scrapers folder and process the articles. 
 They are vectorized and stored in a Qdrant vector database.
 
 The API endpoint can be queried for semantic search and article recommendations for your LLM or research project.
+
 
 ### Getting Started
 Ensure Docker and docker-compose are installed.
