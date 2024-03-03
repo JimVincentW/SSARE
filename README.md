@@ -80,7 +80,7 @@ If you want to use the UI:
 
 ### Add your data source in 3 steps
 1. 
-Insert any sourcing or scraping script into the scraper_service/scrapers folder. 
+Insert any sourcing or scraping script into the ssare/scraper_service/scrapers folder. 
 A simple scraping script can look like this:
 ```python
 import asyncio
@@ -136,6 +136,7 @@ if __name__ == "__main__":
 
 2. Make the script save the dataframe to the /app/scrapers/data/dataframes folder. 
 Give your dataframe the name of the source, e.g. Times of India -> timesofindia_articles.csv, CNN -> cnn_articles.csv, etc.
+And save it like this:
 ````bash
 /app/scrapers/data/dataframes/{source}_articles.csv'
 ````
@@ -159,7 +160,7 @@ Give your dataframe the name of the source, e.g. Times of India -> timesofindia_
 SSARE will execute all scripts in the scrapers folder and process the articles. 
 They are vectorized and stored in a Qdrant vector database.
 
-The API endpoint can be queried for semantic search and article recommendations for your LLM or research project.
+The API/ Qdrant Vector storage can be queried for semantic search and article recommendations for your LLM or other research project.
 
 If your additional scripts need scraping libraries other than BeautifulSoup, please add them to the requirements.txt file in the scraper_service folder (and create a pull request). 
 
