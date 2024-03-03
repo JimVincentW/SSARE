@@ -9,13 +9,19 @@ Always up-to-date news RAG endpoint for semantic search and article recommendati
 SSARE stands for Semantic Search Article Recommendation Engine, an open-source service that comfortably orchestrates scraping, processing into vector representations, storing and querying of news articles. 
 
 SSARE serves as an efficient and scalable resource for semantic search and article recommendations, catering primarily to political news data.
+It is: 
+- A tool to create a dataset, e.g. for source-x in the timeframes y-z
+- A consistently updated vector storage for political news articles (especially suited for LLM/ RAG use cases)
+- Designed for easy addition of new sources
+- A scalable and maintainable solution for political news data
+
 
 **SSARE is an always up to date political news RAG endpoint.**
 
 The engine is adaptable to various sources, requiring only a sourcing script that outputs the data in the format of a dataframe with the columns:
 | url | headline | paragraphs | source |
 
-Once integrated, SSARE processes these articles using embeddings models of your choice(upcoming, currently hardcoded), stores their vector representations in a Qdrant vector database, and maintains a full copy in a PostgreSQL database. 
+Once integrated, SSARE processes these articles using embeddings models of your choice(upcoming, currently hardcoded), stores their vector representations in a Qdrant vector database, and maintains a full copy in a PostgreSQL database. You can store different snapshots of the data in the PostgreSQL (upcoming).
 
 SSARE is a composition of microservices to make this project a scalable and maintainable solution.
 
@@ -26,9 +32,51 @@ This is a high-level overview of the architecture:
 For a more detailed overview, please refer to the [Architecture and Storage](#architecture-and-storage) section.
 
 
-## Version 1 Deployment
-Version 1 is online. Please refer to the [Getting Started](#getting-started) section for deployment instructions.
+### Project Purpose and philosophy
+This project is designed for researchers, journalists, and activists who require a comprehensive and up-to-date database of political news articles.
+Researchers often build these solutions from handcrafted scripts, which are difficult to maintain and scale. SSARE aims to provide a scalable and maintainable solution for political news data.
 
+
+#### Scrape articles and semantically search among them
+Ensure Docker and docker-compose are installed.
+
+Then:
+1. Download the source code by cloning the repository.
+    ```bash
+    git clone https://github.com/JimVincentW/SSARE.git
+    ``` 
+2. Initiate the setup:
+   ```bash
+   cd SSARE
+   docker-compose up --build
+   ```
+3. Execute the initial setup script:
+   ```bash
+   python full.py
+   ```
+   Wait (initial scraping/ processing may take a few minutes).
+4. Query the API:
+   ```bash
+   curl -X GET "http://127.0.0.1:6969/search?query=Argentinia&top=5"
+   ```
+
+If you want to use the UI:
+1. Go to http://localhost:8080 in your browser after you ran the setup script.
+2. Trigger a scraping run.
+3. Wait for the scraping to finish.
+4. Use the search bar to query for articles.
+
+The design philosophy underscores flexibility, allowing integration with any scraper script that aligns with the specified data structure. The infrastructure benefits from each additional source, enriching the diversity and research potential of the database.
+
+## Practical Instructions
+- For custom scraper integration, scripts should yield "url," "headline," "paragraphs." and "source". Store your script at:
+  ```
+  SSARE/scraper_service/scrapers
+  ```
+  Update the scraper configuration accordingly:
+  ```
+  SSARE/scraper_service/scrapers/scrapers_config.json
+  ```
 
 
 ## Add your data source in 3 steps
@@ -115,35 +163,10 @@ They are vectorized and stored in a Qdrant vector database.
 The API endpoint can be queried for semantic search and article recommendations for your LLM or research project.
 
 
-### Getting Started
-Ensure Docker and docker-compose are installed.
+If your additional scripts need scraping libraries other than BeautifulSoup, please add them to the requirements.txt file in the scraper_service folder (and create a pull request). 
 
-Then:
-1. Download the source code by cloning the repository.
-    ```bash
-    git clone https://github.com/JimVincentW/SSARE.git
-    ``` 
-2. Initiate the setup:
-   ```bash
-   cd SSARE
-   docker-compose up --build
-   ```
-3. Execute the initial setup script:
-   ```bash
-   python full.py
-   ```
-   Wait (initial scraping/ processing may take a few minutes).
-4. Query the API:
-   ```bash
-   curl -X GET "http://127.0.0.1:6969/search?query=Argentinia&top=5"
-   ```
+If you want to use your own embeddings models, you need to change the dim size in the code of the qdrant service and the model name in the nlp service.
 
-If you want to use the UI:
-1. Trigger a scraping run.
-2. Wait for the scraping to finish.
-3. Use the search bar to query for articles.
-
-The design philosophy underscores flexibility, allowing integration with any scraper script that aligns with the specified data structure. The infrastructure benefits from each additional source, enriching the diversity and research potential of the database.
 
 ## Upcoming Features
 
@@ -159,26 +182,9 @@ The design philosophy underscores flexibility, allowing integration with any scr
 
 
 
-
-
-
 ### Participation: Script Contributions
 We welcome contributions from passionate activists, enthusiastic data scientists, and dedicated developers. Your expertise can greatly enhance our repository, expanding the breadth of our political news coverage. 
 
-## Practical Instructions
-- For custom scraper integration, scripts should yield "url," "headline," "paragraphs." and "source". Store your script at:
-  ```
-  SSARE/scraper_service/scrapers
-  ```
-  Update the scraper configuration accordingly:
-  ```
-  SSARE/scraper_service/scrapers/scrapers_config.json
-  ```
-  The orchestration service will process your script once implemented.
-
-If your additional scripts need scraping libraries other than BeautifulSoup, please add them to the requirements.txt file in the scraper_service folder (and create a pull request). 
-
-If you want to use your own embeddings models, you need to change the dim size in the code of the qdrant service and the model name in the nlp service.
 
 ## Important Notes
 Current limitations include the limited number of scrapers, alongside the unavailability of querying the postgres database directly.
