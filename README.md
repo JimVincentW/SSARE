@@ -119,7 +119,7 @@ If you want to use the UI:
 2. Wait for the scraping to finish.
 3. Use the search bar to query for articles.
 
-The design philosophy underscores flexibility, allowing integration with any scraper script that aligns with the specified data structure. The infrastructure benefits from each additional source, enriching the system's capability to amass, store, and retrieve news content efficiently.
+The design philosophy underscores flexibility, allowing integration with any scraper script that aligns with the specified data structure. The infrastructure benefits from each additional source, enriching the diversity and research potential of the database.
 
 ## Upcoming Features
 
