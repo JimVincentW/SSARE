@@ -172,7 +172,7 @@ If you want to use your own embeddings models, you need to change the dim size i
 ### Future Roadmap
 #### Short-term
 - [ ] Customisable embeddings models
-- [ ] Eportable Copy of datascraping datasets
+- [ ] Eportable Copy of news datasets
 - [ ] Customisable timeframes for scraping
 
 #### Long-term
