@@ -17,5 +17,3 @@ root_directory = '.' # Replace with your root directory path
 output_filename = 'mains.txt' # Replace with your desired output file name
 copy_specific_files(root_directory, output_filename)
 
-
-## Use to copy the main process and data structure files to a single file

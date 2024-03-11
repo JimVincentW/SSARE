@@ -6,7 +6,9 @@ from redis.asyncio import Redis
 from core.models import ArticleBase
 import json
 from pydantic import ValidationError
+from core.utils import load_config
 import logging
+import os
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -14,10 +16,14 @@ logger = logging.getLogger(__name__)
 """
 This Service runs on port 0420 and is responsible for generating embeddings for articles.
 """
+config = load_config()['nlp']
 
 app = FastAPI()
 
-model = SentenceTransformer("jinaai/jina-embeddings-v2-base-en")
+token = config['HUGGINGFACE_TOKEN']
+
+
+model = SentenceTransformer("jinaai/jina-embeddings-v2-base-en", use_auth_token=token)
 
 @app.get("/healthz")
 async def healthcheck():
