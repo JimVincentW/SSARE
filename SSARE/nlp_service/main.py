@@ -10,6 +10,7 @@ from core.utils import load_config
 import logging
 import os
 
+from core.utils import load_config
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -18,8 +19,14 @@ This Service runs on port 0420 and is responsible for generating embeddings for 
 """
 config = load_config()['nlp']
 
+config = load_config()['nlp']
+
 app = FastAPI()
 
+token = config['HUGGINGFACE_TOKEN']
+
+
+model = SentenceTransformer("jinaai/jina-embeddings-v2-base-en", use_auth_token=token)
 token = config['HUGGINGFACE_TOKEN']
 
 
